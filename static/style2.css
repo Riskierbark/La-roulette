@@ -87,7 +87,7 @@ li, .winners > div {
     top: 10px;
     position: absolute;
     display: flex;
-    overflow: hidden;
+    overflow: none;
     flex-wrap: nowrap;
     transition-duration: 5s;
     transition-timing-function: ease-in-out;
