@@ -65,7 +65,7 @@ SOFTWARE.
 </head>
 <body>
     <div id="chart"></div>
-    <div id="question"><h1></h1></div>
+    <div href="question" id="question"><h1></h1></div>
     
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
@@ -83,48 +83,48 @@ SOFTWARE.
         //http://osric.com/bingo-card-generator/?title=HTML+and+CSS+BINGO!&words=padding%2Cfont-family%2Ccolor%2Cfont-weight%2Cfont-size%2Cbackground-color%2Cnesting%2Cbottom%2Csans-serif%2Cperiod%2Cpound+sign%2C%EF%B9%A4body%EF%B9%A5%2C%EF%B9%A4ul%EF%B9%A5%2C%EF%B9%A4h1%EF%B9%A5%2Cmargin%2C%3C++%3E%2C{+}%2C%EF%B9%A4p%EF%B9%A5%2C%EF%B9%A4!DOCTYPE+html%EF%B9%A5%2C%EF%B9%A4head%EF%B9%A5%2Ccolon%2C%EF%B9%A4style%EF%B9%A5%2C.html%2CHTML%2CCSS%2CJavaScript%2Cborder&freespace=true&freespaceValue=Web+Design+Master&freespaceRandom=false&width=5&height=5&number=35#results
 
         var data = [
-                    {"label":"Tales of Zestiria the X",  "value":1,  "question":"https://www.netflix.com/title/80192073"}, // padding
-                    {"label":"Major 2nd",  "value":1,  "question":"What CSS property is used for changing the font?"}, //font-family
-                    {"label":"Black Butler",  "value":1,  "question":"What CSS property is used for changing the color of text?"}, //color
-                    {"label":"Dennou Coil",  "value":1,  "question":"What CSS property is used for changing the boldness of text?"}, //font-weight
-                    {"label":"Walkure Romanze",  "value":1,  "question":"What CSS property is used for changing the size of text?"}, //font-size
-                    {"label":"Magical Girl Site",  "value":1,  "question":"What CSS property is used for changing the background color of a box?"}, //background-color
-                    {"label":"Plunderer",  "value":1,  "question":"Which word is used for specifying an HTML tag that is inside another tag?"}, //nesting
-                    {"label":"Personna 5 the animation",  "value":1,  "question":"Which side of the box is the third number in: margin:1px 1px 1px 1px; ?"}, //bottom
-                    {"label":"Sekai ichi Hatsukoi",  "value":1,  "question":"What are the fonts that don't have serifs at the ends of letters called?"}, //sans-serif
-                    {"label":"Nagi-Asu", "value":1, "question":"With CSS selectors, what character prefix should one use to specify a class?"}, //period
-                    {"label":"Lagrange-The flower of Rin-ne", "value":1, "question":"With CSS selectors, what character prefix should one use to specify an ID?"}, //pound sign
-                    {"label":"Classica Loid", "value":1, "question":"In an HTML document, which tag holds all of the content people see?"}, //<body>
-                    {"label":"Endride", "value":1, "question":"In an HTML document, which tag indicates an unordered list?"}, //<ul>
-                    {"label":"Personna 4 the animation", "value":1, "question":"In an HTML document, which tag indicates the most important heading of your document?"}, //<h1>
-                    {"label":"Yowamushi Pedal Glory line", "value":1, "question":"What CSS property is used for specifying the area outside a box?"}, //margin
-                    {"label":"Cinderella Nine", "value":1, "question":"What type of bracket is used for HTML tags?"}, //< >
-                    {"label":"Maho Girls Precure", "value":1, "question":"What type of bracket is used for CSS rules?"}, // { }
-                    {"label":"Kamisama no Memo-chou", "value":1, "question":"Which HTML tag is used for specifying a paragraph?"}, //<p>
-                    {"label":"Sket Dance", "value":1, "question":"What should always be the very first line of code in your HTML?"}, //<!DOCTYPE html>
-                    {"label":"Moi quand je me réincarne en slime", "value":1, "question":"What HTML tag holds all of the metadata tags for your page?"}, //<head>
-                    {"label":"Space brother", "value":1, "question":"In CSS, what character separates a property from a value?"}, // colon
-                    {"label":"Sin Nanatsu no taizai", "value":1, "question":"What HTML tag holds all of your CSS code?"}, // <style>
-                    {"label":"Cashern Sins", "value":1, "question":"What file extension should you use for your web pages?"}, // .html
-                    {"label":"Kobato", "value":1, "question":"Which coding language is used for marking up content and structure on a web page?"}, // HTML
-                    {"label":"Girls und Panzer", "value":1, "question":"Which coding language is used for specifying the design of a web page?"}, // CSS
-                    {"label":"Psychic Detective Yakumo", "value":1, "question":"Which coding language is used for adding functionality to a web page?"}, // JavaScript
-                    {"label":"Brigadoon: Marin & Melan", "value":1, "question":"What CSS property is used for making the edges of a box visible?"}, // border
-                    {"label":"Arpegio of Blue Steel", "value":1, "question":"What character symbol is used at the end of each CSS statement?"},//semi-colon
-                    {"label":"Unbreakable Machine-Doll", "value":1, "question":"By default, how wide is a <div> box?"}, //100%
-                    {"label":"Angel Beats", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, //comma
-                    {"label":"Saga of Tanya the Evil", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, //comma
-                    {"label":"The mightiest Disciple", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, //comma
-                    {"label":"Bakumatsu Gijnden Roman", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, //comma
-                    {"label":"Outlaw Star", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, //comma
-                    {"label":"Active Raid", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, //comma
-                    {"label":"Maria Holic", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, //comma
-                    {"label":"Mew Mew Power", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, //comma
-                    {"label":"Akane-Iro Somaru Saka", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, //comma
-                    {"label":"Gakuen Babysitters", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, //comma
-                    {"label":"Sora no method", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, //comma
-                    {"label":"Gochuumon wa Usagi Desu ka ?", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, //comma
-                    {"label":"Beautiful Bones: Sakura's Investigation", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, //comma
+                    {"label":"Tales of Zestiria the X",  "value":1,  "question":"https://www.netflix.com/title/80192073"}, 
+                    {"label":"Major 2nd",  "value":1,  "question":"What CSS property is used for changing the font?"}, 
+                    {"label":"Black Butler",  "value":1,  "question":"What CSS property is used for changing the color of text?"}, 
+                    {"label":"Dennou Coil",  "value":1,  "question":"What CSS property is used for changing the boldness of text?"}, 
+                    {"label":"Walkure Romanze",  "value":1,  "question":"What CSS property is used for changing the size of text?"}, 
+                    {"label":"Magical Girl Site",  "value":1,  "question":"What CSS property is used for changing the background color of a box?"}, 
+                    {"label":"Plunderer",  "value":1,  "question":"Which word is used for specifying an HTML tag that is inside another tag?"}, 
+                    {"label":"Personna 5 the animation",  "value":1,  "question":"Which side of the box is the third number in: margin:1px 1px 1px 1px; ?"}, 
+                    {"label":"Sekai ichi Hatsukoi",  "value":1,  "question":"What are the fonts that don't have serifs at the ends of letters called?"}, 
+                    {"label":"Nagi-Asu", "value":1, "question":"With CSS selectors, what character prefix should one use to specify a class?"}, 
+                    {"label":"Lagrange-The flower of Rin-ne", "value":1, "question":"With CSS selectors, what character prefix should one use to specify an ID?"}, 
+                    {"label":"Classica Loid", "value":1, "question":"In an HTML document, which tag holds all of the content people see?"}, 
+                    {"label":"Endride", "value":1, "question":"In an HTML document, which tag indicates an unordered list?"}, 
+                    {"label":"Personna 4 the animation", "value":1, "question":"In an HTML document, which tag indicates the most important heading of your document?"},
+                    {"label":"Yowamushi Pedal Glory line", "value":1, "question":"What CSS property is used for specifying the area outside a box?"}, 
+                    {"label":"Cinderella Nine", "value":1, "question":"What type of bracket is used for HTML tags?"}, 
+                    {"label":"Maho Girls Precure", "value":1, "question":"What type of bracket is used for CSS rules?"}, 
+                    {"label":"Kamisama no Memo-chou", "value":1, "question":"Which HTML tag is used for specifying a paragraph?"}, 
+                    {"label":"Sket Dance", "value":1, "question":"What should always be the very first line of code in your HTML?"}, 
+                    {"label":"Moi quand je me réincarne en slime", "value":1, "question":"What HTML tag holds all of the metadata tags for your page?"},
+                    {"label":"Space brother", "value":1, "question":"In CSS, what character separates a property from a value?"}, 
+                    {"label":"Sin Nanatsu no taizai", "value":1, "question":"What HTML tag holds all of your CSS code?"},
+                    {"label":"Cashern Sins", "value":1, "question":"What file extension should you use for your web pages?"}, 
+                    {"label":"Kobato", "value":1, "question":"Which coding language is used for marking up content and structure on a web page?"},
+                    {"label":"Girls und Panzer", "value":1, "question":"Which coding language is used for specifying the design of a web page?"},
+                    {"label":"Psychic Detective Yakumo", "value":1, "question":"Which coding language is used for adding functionality to a web page?"}, 
+                    {"label":"Brigadoon: Marin & Melan", "value":1, "question":"What CSS property is used for making the edges of a box visible?"}, 
+                    {"label":"Arpegio of Blue Steel", "value":1, "question":"What character symbol is used at the end of each CSS statement?"},
+                    {"label":"Unbreakable Machine-Doll", "value":1, "question":"By default, how wide is a <div> box?"}, 
+                    {"label":"Angel Beats", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, 
+                    {"label":"Saga of Tanya the Evil", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, 
+                    {"label":"The mightiest Disciple", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, 
+                    {"label":"Bakumatsu Gijnden Roman", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, 
+                    {"label":"Outlaw Star", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, 
+                    {"label":"Active Raid", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, 
+                    {"label":"Maria Holic", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, 
+                    {"label":"Mew Mew Power", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, 
+                    {"label":"Akane-Iro Somaru Saka", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, 
+                    {"label":"Gakuen Babysitters", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, 
+                    {"label":"Sora no method", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, 
+                    {"label":"Gochuumon wa Usagi Desu ka ?", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, 
+                    {"label":"Beautiful Bones: Sakura's Investigation", "value":1, "question":"What character symbol do I use to specify multiple CSS selectors in one code block?"}, 
                     
         ];
 
