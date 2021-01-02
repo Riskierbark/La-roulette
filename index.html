@@ -1,282 +1,285 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>La roue là</title>
-    <link rel="stylesheet" type="text/css" href="static/style2.css">
+<! DOCTYPE html >
+< html >
+< tête >
+    < meta  charset = " utf-8 " >
+    < titre > La roue là </ titre >
+    < link  rel = " stylesheet " type = " text / css " href = " static / style2.css " >
     
-<!--
+<! -
     
-MIT License
+Licence MIT
 Copyright (c) 2017 Jeremy Rue
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
--->
+L'autorisation est par la présente accordée, gratuitement, à toute personne obtenant une copie
+de ce logiciel et des fichiers de documentation associés (le «Logiciel»), pour traiter
+dans le Logiciel sans restriction, y compris sans limitation les droits
+pour utiliser, copier, modifier, fusionner, publier, distribuer, sous-licencier et / ou vendre
+copies du Logiciel, et pour permettre aux personnes auxquelles le Logiciel est
+fourni à cet effet, sous réserve des conditions suivantes:
+L'avis de droit d'auteur ci-dessus et cet avis d'autorisation doivent être inclus dans tous
+copies ou parties substantielles du logiciel.
+LE LOGICIEL EST FOURNI "EN L'ÉTAT", SANS GARANTIE D'AUCUNE SORTE, EXPRESSE OU
+IMPLICITE, Y COMPRIS MAIS SANS S'Y LIMITER LES GARANTIES DE QUALITÉ MARCHANDE,
+ADAPTATION À UN USAGE PARTICULIER ET NON-CONTREFAÇON. EN AUCUN CAS LE
+LES AUTEURS OU LES TITULAIRES DE COPYRIGHT SONT RESPONSABLES DE TOUTE RÉCLAMATION, DOMMAGES OU AUTRES
+RESPONSABILITÉ, QUE CE SOIT DANS UNE ACTION DE CONTRAT, DE TORT OU AUTRE, DÉCOULANT DE,
+HORS OU EN LIEN AVEC LE LOGICIEL OU L'UTILISATION OU D'AUTRES ACTIONS DANS LE
+LOGICIEL.
+->
     
-    <style type="text/css">
-    text{
-        font-family:Helvetica, Arial, sans-serif;
-        font-size:11px;
-        pointer-events:none;
+    < style  type = " text / css " >
+    texte {
+        famille de polices: Helvetica , Arial , sans-serif;
+        taille de la police : 11 px ;
+        événements de pointeur : aucun;
     }
-    #chart{
-        position:absolute;
-        width:500px;
-        height:500px;
-        top:0;
-        left:0;
+    # chart {
+        position : absolue;
+        largeur : 500 px ;
+        hauteur : 500 px ;
+        haut : 0 ;
+        gauche : 0 ;
     }
-    #question{
-        position: absolute;
-        width:400px;
-        height:500px;
-        top:0;
-        left:520px;
+    # question {
+        position : absolue;
+        largeur : 400 px ;
+        hauteur : 500 px ;
+        haut : 0 ;
+        à gauche : 520 px ;
     }
-    #question h1{
-        font-size: 50px;
-        font-weight: bold;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        position: absolute;
-        padding: 0;
-        margin: 0;
-        top:50%;
-        -webkit-transform:translate(0,-50%);
-                transform:translate(0,-50%);
+    # question  h1 {
+        taille de la police : 50 px ;
+        poids de la police : gras;
+        famille de polices : "Helvetica Neue" , Helvetica , Arial , sans-serif;
+        position : absolue;
+        rembourrage : 0 ;
+        marge : 0 ;
+        haut : 50 % ;
+        -webkit-transform : traduire ( 0 , -50 % );
+                transformer : traduire ( 0 , -50 % );
     }
-    </style>
+    </ style >
     
-</head>
-<body>
-    <div id="chart"></div>
-    <div href="question" id="question"><h1></h1></div>
+</ tête >
+< corps >
+    < div  id = " chart " > </ div >
+    < div  href = " question " id = " question " > < h1 > </ h1 > </ div >
     
-    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script type="text/javascript" charset="utf-8">
-        var padding = {top:20, right:40, bottom:0, left:0},
-            w = 500 - padding.left - padding.right,
-            h = 500 - padding.top  - padding.bottom,
-            r = Math.min(w, h)/2,
-            rotation = 0,
-            oldrotation = 0,
-            picked = 100000,
-            oldpick = [],
-            color = d3.scale.category20();//category20c()
-            //randomNumbers = getRandomNumbers();
+    < script  src = " https://d3js.org/d3.v3.min.js " charset = " utf-8 " > </ script >
+    < script  type = " text / javascript " charset = " utf-8 " >
+        var  padding  =  { haut : 20 ,  droite : 40 ,  bas : 0 ,  gauche : 0 } ,
+            w  =  500  -  rembourrage . gauche  -  rembourrage . à droite ,
+            h  =  500  -  rembourrage . haut   -  rembourrage . en bas ,
+            r  =  Math . min ( l ,  h ) / 2 ,
+            rotation  =  0 ,
+            oldrotation  =  0 ,
+            choisi  =  100000 ,
+            oldpick  =  [ ] ,
+            couleur  =  d3 . échelle . catégorie20 ( ) ; // catégorie20c ()
+            // randomNumbers = getRandomNumbers ();
 
-        //http://osric.com/bingo-card-generator/?title=HTML+and+CSS+BINGO!&words=padding%2Cfont-family%2Ccolor%2Cfont-weight%2Cfont-size%2Cbackground-color%2Cnesting%2Cbottom%2Csans-serif%2Cperiod%2Cpound+sign%2C%EF%B9%A4body%EF%B9%A5%2C%EF%B9%A4ul%EF%B9%A5%2C%EF%B9%A4h1%EF%B9%A5%2Cmargin%2C%3C++%3E%2C{+}%2C%EF%B9%A4p%EF%B9%A5%2C%EF%B9%A4!DOCTYPE+html%EF%B9%A5%2C%EF%B9%A4head%EF%B9%A5%2Ccolon%2C%EF%B9%A4style%EF%B9%A5%2C.html%2CHTML%2CCSS%2CJavaScript%2Cborder&freespace=true&freespaceValue=Web+Design+Master&freespaceRandom=false&width=5&height=5&number=35#results
+        //http://osric.com/bingo-card-generator/?title=HTML+and+CSS+BINGO!&words=padding%2Cfont-family%2Ccolor%2Cfont-weight%2Cfont-size%2Cbackground-color%2Cnesting % 2Cbottom% 2Csans-serif% 2Cperiod% 2Cpound + signe% 2C% EF% B9% A4body% EF% B9% A5% 2C% EF% B9% A4ul% EF% B9% A5% 2C% EF% B9% A4h1% EF % B9% A5% 2Cmargin% 2C% 3C ++% 3E% 2C {+}% 2C% EF% B9% A4p% EF% B9% A5% 2C% EF% B9% A4! DOCTYPE + html% EF% B9% A5% 2C% EF% B9% A4head% EF% B9% A5% 2Ccolon% 2C% EF% B9% A4style% EF% B9% A5% 2C.html% 2CHTML% 2CCSS% 2CJavaScript% 2Cborder & freespace = true & freespaceValue = Web + Design + Master & freespaceRandom = false & width = 5 & height = 5 & number = 35 # résultats
 
-        var data = [
-                    {"label":"Tales of Zestiria the X",  "value":1,  "question":"Tales of Zestiria the X - https://www.netflix.com/title/80192073"}, 
-                    {"label":"Major 2nd",  "value":1,  "question":"Major 2nd - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3678AduyTyjEsVSmFeRT"}, 
-                    {"label":"Black Butler",  "value":1,  "question":"Black Butler - https://www.netflix.com/search?q=black%20butler&jbv=70204955?"}, 
-                    {"label":"Dennou Coil",  "value":1,  "question":"Dennou Coil - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3442AduyTyjEsVSmFeRT"}, 
-                    {"label":"Walkure Romanze",  "value":1,  "question":"Walkure Romanze - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM235AduyTyjEsVSmFeRT"}, 
-                    {"label":"Magical Girl Site",  "value":1,  "question":"Magical Girl Site - https://www.ianimes.org/f87a05ef69bc4586dd04359e84364c41.htm"}, 
-                    {"label":"Plunderer",  "value":1,  "question":"Plunderer - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM4177AduyTyjEsVSmFeRT"}, 
-                    {"label":"Personna 5 the animation",  "value":1,  "question":"Personna 5 - https://www.wakanim.tv/fr/v2/catalogue/show/344/persona5-the-animation"}, 
-                    {"label":"Sekai ichi Hatsukoi",  "value":1,  "question":"Sekai ichi Hatsukoi - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3064AduyTyjEsVSmFeRT"}, 
-                    {"label":"Nagi-Asu", "value":1, "question":"Nagi-Asu - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM331AduyTyjEsVSmFeRT"}, 
-                    {"label":"Lagrange-The flower of Rin-ne", "value":1, "question":"Lagrange - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2352AduyTyjEsVSmFeRT"}, 
-                    {"label":"Classica Loid", "value":1, "question":"Classica Loid - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3243AduyTyjEsVSmFeRT"}, 
-                    {"label":"Endride", "value":1, "question":"Endride - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3808AduyTyjEsVSmFeRT"}, 
-                    {"label":"Personna 4 the animation", "value":1, "question":"Personna 4 - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM676AduyTyjEsVSmFeRT"},
-                    {"label":"Yowamushi Pedal Glory line", "value":1, "question":"Yowamushi Pedal Glory line - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM238AduyTyjEsVSmFeRT"}, 
-                    {"label":"Cinderella Nine", "value":1, "question":"Cinderella Nine - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3969AduyTyjEsVSmFeRT"}, 
-                    {"label":"Maho Girls Precure", "value":1, "question":"Maho Girls Precure - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2937AduyTyjEsVSmFeRT"}, 
-                    {"label":"Kamisama no Memo-chou", "value":1, "question":"Kamisama no memo-chou - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM303AduyTyjEsVSmFeRT"}, 
-                    {"label":"Sket Dance", "value":1, "question":"Sket Dance - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM299AduyTyjEsVSmFeRT"}, 
-                    {"label":"Moi quand je me réincarne en slime", "value":1, "question":"Slime - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3818AduyTyjEsVSmFeRT"},
-                    {"label":"Space brother", "value":1, "question":"Space Brother - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM507AduyTyjEsVSmFeRT"}, 
-                    {"label":"Sin Nanatsu no taizai", "value":1, "question":"Sin Nanatsu no taizai - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3380AduyTyjEsVSmFeRT"},
-                    {"label":"Cashern Sins", "value":1, "question":"Cashern Sins - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM472AduyTyjEsVSmFeRT"}, 
-                    {"label":"Kobato", "value":1, "question":"Kobato - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM625AduyTyjEsVSmFeRT"},
-                    {"label":"Girls und Panzer", "value":1, "question":"Girls und Panzer - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2549AduyTyjEsVSmFeRT"},
-                    {"label":"Psychic Detective Yakumo", "value":1, "question":"Psychic Detective Yakumo - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2094AduyTyjEsVSmFeRT"}, 
-                    {"label":"Brigadoon: Marin & Melan", "value":1, "question":"Brigadoon: Marin & Melan - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM113AduyTyjEsVSmFeRT"}, 
-                    {"label":"Arpeggio of Blue Steel", "value":1, "question":"Arpeggio of Blue Steel - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM968AduyTyjEsVSmFeRT"},
-                    {"label":"Unbreakable Machine-Doll", "value":1, "question":"Unbreakable Machine-Doll - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM371AduyTyjEsVSmFeRT"}, 
-                    {"label":"Angel Beats", "value":1, "question":"Angel Beats - https://www.netflix.com/browse?jbv=70201870"}, 
-                    {"label":"Saga of Tanya the Evil", "value":1, "question":"Saga of Tanya the Evil - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3268AduyTyjEsVSmFeRT"}, 
-                    {"label":"The mightiest Disciple", "value":1, "question":"The mightiest Disciple - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM1AduyTyjEsVSmFeRT"}, 
-                    {"label":"Bakumatsu Gijnden Roman", "value":1, "question":"Bakumatsu Gijnden Roman - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM82AduyTyjEsVSmFeRT"}, 
-                    {"label":"Outlaw Star", "value":1, "question":"Outlaw Star - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2699AduyTyjEsVSmFeRT"}, 
-                    {"label":"Active Raid", "value":1, "question":"Active Raid - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2874AduyTyjEsVSmFeRT"}, 
-                    {"label":"Maria Holic", "value":1, "question":"Maria Holic - http://www.anime-ultime.net/info-0-1/15546/MariaHolic-3"}, 
-                    {"label":"Mew Mew Power", "value":1, "question":"Mew Mew Power - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM604AduyTyjEsVSmFeRT"}, 
-                    {"label":"Akane-Iro Somaru Saka", "value":1, "question":"Akane-Iro Somaru Saka - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM48AduyTyjEsVSmFeRT"}, 
-                    {"label":"Gakuen Babysitters", "value":1, "question":"Gakuen Babysitters - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3614AduyTyjEsVSmFeRT"}, 
-                    {"label":"Sora no method", "value":1, "question":"Sora no method - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2486AduyTyjEsVSmFeRT"}, 
-                    {"label":"Gochuumon wa Usagi Desu ka ?", "value":1, "question":"Gochuumon wa Usagi Desu ka ? - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2775AduyTyjEsVSmFeRT"}, 
-                    {"label":"Beautiful Bones: Sakura's Investigation", "value":1, "question":"Beautiful Bones - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2745AduyTyjEsVSmFeRT"}, 
-                    {"label":"Higurashi no naku koro ni kira", "value":1, "question":"Higurashi no naku koro ni kira - https://www.ianimes.org/resultat+HIGURASHI+NO.html"},
-                    {"label":"Yozukura Quartet", "value":1, "question":"Yozukura Quartet - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2203AduyTyjEsVSmFeRT"},
-                    {"label":"Nurse witch KOMUGI R", "value":1, "question":"Nurse witch KOMUGI R - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2888AduyTyjEsVSmFeRT"},
-                    {"label":"Slam Dunk", "value":1, "question":"Slam Dunk - https://animedigitalnetwork.fr/video/slam-dunk"},
-                    {"label":"My Sister, my writer", "value":1, "question":"My Sister, my writer - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3845AduyTyjEsVSmFeRT"},
-                    {"label":"Sankaera ", "value":1, "question":"Sankaera - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM799AduyTyjEsVSmFeRT"},
-                    {"label":"Girls Beyond the westeland ", "value":1, "question":"Girls Beyond the westeland  - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2873AduyTyjEsVSmFeRT"},
-                    {"label":"Demon King Daimo", "value":1, "question":"Demon King Daimo - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM236AduyTyjEsVSmFeRT"},
-                    {"label":"Stella no Mahou", "value":1, "question":"Stella no Mahou - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3236AduyTyjEsVSmFeRT"},
-        ];
+        var  data  =  [
+                    { "label" : "Tales of Zestiria the X" ,   "value" : 1 ,   "question" : "Tales of Zestiria the X - https://www.netflix.com/title/80192073" } , 
+                    { "label" : "Major 2nd" ,   "value" : 1 ,   "question" : "Major 2nd - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3678AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Black Butler" ,   "value" : 1 ,   "question" : "Black Butler - https://www.netflix.com/search?q=black%20butler&jbv=70204955?" } , 
+                    { "label" : "Dennou Coil" ,   "value" : 1 ,   "question" : "Dennou Coil - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3442AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Walkure Romanze" ,   "value" : 1 ,   "question" : "Walkure Romanze - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM235AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Site Magical Girl" ,   "value" : 1 ,   "question" : "Site Magical Girl - https://www.ianimes.org/f87a05ef69bc4586dd04359e84364c41.htm" } , 
+                    { "label" : "Pilleurs" ,   "valeur" : 1 ,   "question" : "Pilleurs - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM4177AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Personna 5 l'animation" ,   "value" : 1 ,   "question" : "Personna 5 - https://www.wakanim.tv/fr/v2/catalogue/show/344/persona5-the- animation " } , 
+                    { "label" : "Sekai ichi Hatsukoi" ,   "value" : 1 ,   "question" : "Sekai ichi Hatsukoi - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3064AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Nagi-Asu" ,  "value" : 1 ,  "question" : "Nagi-Asu - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM331AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Lagrange-La fleur de Rin-ne" ,  "value" : 1 ,  "question" : "Lagrange - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2352AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Classica Loid" ,  "value" : 1 ,  "question" : "Classica Loid - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3243AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Endride" ,  "value" : 1 ,  "question" : "Endride - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3808AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Personna 4 l'animation" ,  "value" : 1 ,  "question" : "Personna 4 - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM676AduyTyjEsVSmFeRT" } ,
+                    { "label" : "Yowamushi Pedal Glory line" ,  "value" : 1 ,  "question" : "Yowamushi Pedal Glory line - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM238AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Cinderella Nine" ,  "value" : 1 ,  "question" : "Cinderella Nine - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3969AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Maho Girls Precure" ,  "value" : 1 ,  "question" : "Maho Girls Precure - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2937AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Kamisama no Memo-chou" ,  "value" : 1 ,  "question" : "Kamisama no memo-chou - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM303AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Sket Dance" ,  "value" : 1 ,  "question" : "Sket Dance - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM299AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Moi quand je me réincarne en slime" ,  "value" : 1 ,  "question" : "Slime - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3818AduyTyjEsVSmFeRT" } ,
+                    { "label" : " Space Brother " ,  "value" : 1 ,  "question" : "Space Brother - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM507AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Sin Nanatsu no taizai" ,  "value" : 1 ,  "question" : "Sin Nanatsu no taizai - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3380AduyTyjEsVSmFeRT" } ,
+                    { "label" : "Cashern Sins" ,  "value" : 1 ,  "question" : "Cashern Sins - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM472AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Kobato" ,  "value" : 1 ,  "question" : "Kobato - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM625AduyTyjEsVSmFeRT" } ,
+                    { "label" : "Girls und Panzer" ,  "value" : 1 ,  "question" : "Girls und Panzer - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2549AduyTyjEsVSmFeRT" } ,
+                    { "label" : "Psychic Detective Yakumo" ,  "value" : 1 ,  "question" : "Psychic Detective Yakumo - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2094AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Brigadoon: Marin & Melan" ,  "value" : 1 ,  "question" : "Brigadoon: Marin & Melan - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM113AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Arpeggio of Blue Steel" ,  "value" : 1 ,  "question" : "Arpeggio of Blue Steel - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM968AduyTyjEsVSmFeRT" } ,
+                    { "label" : "Machine-Doll incassable" ,  "value" : 1 ,  "question" : "Machine-Doll incassable - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM371AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Angel Beats" ,  "value" : 1 ,  "question" : "Angel Beats - https://www.netflix.com/browse?jbv=70201870" } , 
+                    { "label" : "Saga of Tanya the Evil" ,  "value" : 1 ,  "question" : "Saga of Tanya the Evil - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3268AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Le disciple le plus puissant" ,  "value" : 1 ,  "question" : "Le disciple le plus puissant - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM1AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Bakumatsu Gijnden Roman" ,  "value" : 1 ,  "question" : "Bakumatsu Gijnden Roman - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM82AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Outlaw Star" ,  "value" : 1 ,  "question" : "Outlaw Star - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2699AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Active Raid" ,  "value" : 1 ,  "question" : "Active Raid - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2874AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Maria Holic" ,  "value" : 1 ,  "question" : "Maria Holic - http://www.anime-ultime.net/info-0-1/15546/MariaHolic-3" } , 
+                    { "label" : "Mew Mew Power" ,  "value" : 1 ,  "question" : "Mew Mew Power - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM604AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Akane-Iro Somaru Saka" ,  "value" : 1 ,  "question" : "Akane-Iro Somaru Saka - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM48AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Gakuen Babysitters" ,  "value" : 1 ,  "question" : "Gakuen Babysitters - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3614AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Sora no method" ,  "value" : 1 ,  "question" : "Sora no method - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2486AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Gochuumon wa Usagi Desu ka?" ,  "value" : 1 ,  "question" : "Gochuumon wa Usagi Desu ka? - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2775AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Beautiful Bones: Sakura's Investigation" ,  "value" : 1 ,  "question" : "Beautiful Bones - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2745AduyTyjEsVSmFeRT" } , 
+                    { "label" : "Higurashi no naku koro ni kira" ,  "value" : 1 ,  "question" : "Higurashi no naku koro ni kira - https://www.ianimes.org/resultat+HIGURASHI+NO.html" } ,
+                    { "label" : "Yozukura Quartet" ,  "value" : 1 ,  "question" : "Yozukura Quartet - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2203AduyTyjEsVSmFeRT" } ,
+                    { "label" : "Infirmière sorcière KOMUGI R" ,  "value" : 1 ,  "question" : "Infirmière sorcière KOMUGI R - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2888AduyTyjEsVSmFeRT" } ,
+                    { "label" : "Slam Dunk" ,  "value" : 1 ,  "question" : "Slam Dunk - https://animedigitalnetwork.fr/video/slam-dunk" } ,
+                    { "label" : "Ma soeur, mon écrivain" ,  "value" : 1 ,  "question" : "Ma soeur, mon écrivain - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3845AduyTyjEsVSmFeRT" } ,
+                    { "label" : "Sankaera" ,  "value" : 1 ,  "question" : "Sankaera - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM799AduyTyjEsVSmFeRT" } ,
+                    { "Label" : "Girls Beyond the westeland" ,  "valeur" : 1 ,  "question" : "Girls Beyond the westeland - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM2873AduyTyjEsVSmFeRT" } ,
+                    { "label" : "Demon King Daimo" ,  "value" : 1 ,  "question" : "Demon King Daimo - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM236AduyTyjEsVSmFeRT" } ,
+                    { "label" : "Stella no Mahou" ,  "value" : 1 ,  "question" : "Stella no Mahou - https://www.ianimes.org/liste.php?manga=BbkCdhihfKnKBPQM3236AduyTyjEsVSmFeRT" } ,
+                    { "label" : "Mushi-uta" ,  "value" : 1 ,  "question" : "Mushi-uta" } ,
+                    { "label" : "Afterlost" ,  "value" : 1 ,  "question" : "Afterlost" } ,
+                    { "label" : "Golden Kamui" ,  "value" : 1 ,  "question" : "Golden Kamui" } ,
+        ] ;
 
 
-        var svg = d3.select('#chart')
-            .append("svg")
-            .data([data])
-            .attr("width",  w + padding.left + padding.right)
-            .attr("height", h + padding.top + padding.bottom);
+        var  svg  =  d3 . sélectionnez ( '#chart' )
+            . ajouter ( "svg" )
+            . données ( [ données ] )
+            . attr ( "largeur" ,   w  +  remplissage . gauche  +  remplissage . droite )
+            . attr ( "hauteur" ,  h  +  rembourrage . haut  +  rembourrage . bas ) ;
 
-        var container = svg.append("g")
-            .attr("class", "chartholder")
-            .attr("transform", "translate(" + (w/2 + padding.left) + "," + (h/2 + padding.top) + ")");
+         conteneur  var =  svg . ajouter ( "g" )
+            . attr ( "classe" ,  "chartholder" )
+            . attr ( "transformer" ,  "translate ("  +  ( w / 2  +  padding . left )  +  ","  +  ( h / 2  +  padding . top )  +  ")" ) ;
 
-        var vis = container
-            .append("g");
+        var  vis  =  conteneur
+            . append ( "g" ) ;
             
-        var pie = d3.layout.pie().sort(null).value(function(d){return 1;});
+        var  tarte  =  d3 . mise en page . tarte ( ) . sort ( nul ) . valeur ( fonction ( d ) { retour  1 ; } ) ;
 
-        // declare an arc generator function
-        var arc = d3.svg.arc().outerRadius(r);
+        // déclarer une fonction de générateur d'arc
+        var  arc  =  d3 . svg . arc ( ) . externalRadius ( r ) ;
 
-        // select paths, use arc generator to draw
-        var arcs = vis.selectAll("g.slice")
-            .data(pie)
-            .enter()
-            .append("g")
-            .attr("class", "slice");
+        // sélectionner les chemins, utiliser le générateur d'arc pour dessiner
+        var  arcs  =  vis . selectAll ( "g.slice" )
+            . données ( tarte )
+            . entrer ( )
+            . ajouter ( "g" )
+            . attr ( "classe" ,  "tranche" ) ;
             
 
-        arcs.append("path")
-            .attr("fill", function(d, i){ return color(i); })
-            .attr("d", function (d) { return arc(d); });
+        des arcs . append ( "chemin" )
+            . attr ( "fill" ,  function ( d ,  i ) {  return  color ( i ) ;  } )
+            . attr ( "d" ,  fonction  ( d )  {  retour d'  arc ( d ) ;  } ) ;
 
-        // add the text
-        arcs.append("text").attr("transform", function(d){
-                d.innerRadius = 0;
-                d.outerRadius = r;
-                d.angle = (d.startAngle + d.endAngle)/2;
-                return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")translate(" + (d.outerRadius -10) +")";
-            })
-            .attr("text-anchor", "end")
-            .text( function(d, i) {
-                return data[i].label;
-            });
+        // ajoute le texte
+        des arcs . append ( "texte" ) . attr ( "transformer" ,  fonction ( d ) {
+                d . innerRadius  =  0 ;
+                d . externalRadius  =  r ;
+                d . angle  =  ( d . startAngle  +  d . endAngle ) / 2 ;
+                return  "rotate ("  +  ( d . angle * 180 / Math . PI  -  90 )  +  ") translate ("  +  ( d . outerRadius  - 10 )  + ")" ;
+            } )
+            . attr ( "texte-ancre" ,  "fin" )
+            . texte (  fonction ( d ,  i )  {
+                renvoie les  données [ i ] . étiquette ;
+            } ) ;
 
-        container.on("click", spin);
+        conteneur . on ( "cliquer" ,  tourner ) ;
 
 
-        function spin(d){
+        fonction  spin ( d ) {
             
-            container.on("click", null);
+            conteneur . on ( "clic" ,  nul ) ;
 
-            //all slices have been seen, all done
-            console.log("OldPick: " + oldpick.length, "Data length: " + data.length);
-            if(oldpick.length == data.length){
-                console.log("done");
-                container.on("click", null);
-                return;
+            // toutes les tranches ont été vues, tout est terminé
+            console . log ( "OldPick:"  +  oldpick . length ,  "Data length:"  +  data . length ) ;
+            if ( oldpick . length  ==  data . length ) {
+                console . log ( "done" ) ;
+                conteneur . on ( "clic" ,  nul ) ;
+                retour ;
             }
 
-            var  ps       = 360/data.length,
-                 pieslice = Math.round(1440/data.length),
-                 rng      = Math.floor((Math.random() * 1440) + 360);
+            var   ps        =  360 / données . longueur ,
+                 pieslice  =  Math . round ( 1440 / données . longueur ) ,
+                 rng       =  Math . plancher ( ( Math . aléatoire ( ) * 1440 )  +  360 ) ;
                 
-            rotation = (Math.round(rng / ps) * ps);
+            rotation  =  ( Math . round ( rng / ps ) * ps ) ;
             
-            picked = Math.round(data.length - (rotation % 360)/ps);
-            picked = picked >= data.length ? (picked % data.length) : picked;
+            pick  =  Math . round ( data . length  -  ( rotation % 360 ) / ps ) ;
+            pick  =  pick > = données . longueur ? ( données % sélectionnées . longueur ) : sélection ;
 
 
-            if(oldpick.indexOf(picked) !== -1){
-                d3.select(this).call(spin);
-                return;
-            } else {
-                oldpick.push(picked);
+            if ( oldpick . indexOf ( choisi ) ! == - 1 ) {
+                d3 . sélectionnez ( ceci ) . appel ( rotation ) ;
+                retour ;
+            }  else  {
+                oldpick . pousser ( choisi ) ;
             }
 
-            rotation += 90 - Math.round(ps/2);
+            rotation  + =  90  -  Math . rond ( ps / 2 ) ;
 
-            vis.transition()
-                .duration(3000)
-                .attrTween("transform", rotTween)
-                .each("end", function(){
+            vis . transition ( )
+                . durée ( 3000 )
+                . attrTween ( "transformer" ,  rotTween )
+                . each ( "fin" ,  function ( ) {
 
-                    //mark question as seen
-                    d3.select(".slice:nth-child(" + (picked + 1) + ") path")
-                        .attr("fill", "#111");
+                    // marque la question comme vue
+                    d3 . select ( ".slice: nth-child ("  +  ( choisi  +  1 )  +  ") chemin" )
+                        . attr ( "remplir" ,  "# 111" ) ;
 
-                    //populate question
-                    d3.select("#question h1")
-                        .text(data[picked].question);
+                    // remplir la question
+                    d3 . select ( "#question h1" )
+                        . texte ( données [ sélectionnées ] . question ) ;
 
-                    oldrotation = rotation;
+                    oldrotation  =  rotation ;
                 
-                    container.on("click", spin);
-                });
+                    conteneur . on ( "cliquer" ,  tourner ) ;
+                } ) ;
         }
 
-        //make arrow
-        svg.append("g")
-            .attr("transform", "translate(" + (w + padding.left + padding.right) + "," + ((h/2)+padding.top) + ")")
-            .append("path")
-            .attr("d", "M-" + (r*.15) + ",0L0," + (r*.05) + "L0,-" + (r*.05) + "Z")
-            .style({"fill":"black"});
+        // faire une flèche
+        svg . ajouter ( "g" )
+            . attr ( "transformer" ,  "translate ("  +  ( w  +  padding . left  +  padding . right )  +  ","  +  ( ( h / 2 ) + padding . top )  +  ")" )
+            . append ( "chemin" )
+            . attr ( "d" ,  "M-"  +  ( r * .15 )  +  ", 0L0,"  +  ( r * .05 )  +  "L0, -"  +  ( r * .05 )  +  "Z" )
+            . style ( { "fill" : "black" } ) ;
 
-        //draw spin circle
-        container.append("circle")
-            .attr("cx", 0)
-            .attr("cy", 0)
-            .attr("r", 60)
-            .style({"fill":"white","cursor":"pointer"});
+        // dessine un cercle de rotation
+        conteneur . ajouter ( "cercle" )
+            . attr ( "cx" ,  0 )
+            . attr ( "cy" ,  0 )
+            . attr ( "r" ,  60 )
+            . style ( { "remplissage" : "blanc" , "curseur" : "pointeur" } ) ;
 
-        //spin text
-        container.append("text")
-            .attr("x", 0)
-            .attr("y", 15)
-            .attr("text-anchor", "middle")
-            .text("SPIN")
-            .style({"font-weight":"bold", "font-size":"30px"});
+        // faire tourner le texte
+        conteneur . ajouter ( "texte" )
+            . attr ( "x" ,  0 )
+            . attr ( "y" ,  15 )
+            . attr ( "texte-ancre" ,  "milieu" )
+            . texte ( "SPIN" )
+            . style ( { "font-weight" : "bold" ,  "font-size" : "30px" } ) ;
         
         
-        function rotTween(to) {
-          var i = d3.interpolate(oldrotation % 360, rotation);
-          return function(t) {
-            return "rotate(" + i(t) + ")";
-          };
+        function  rotTween ( à )  {
+          var  i  =  d3 . interpoler ( oldrotation % 360 ,  rotation ) ;
+           fonction de retour ( t )  {
+            retourne  "rotation ("  +  i ( t )  +  ")" ;
+          } ;
         }
         
         
-        function getRandomNumbers(){
-            var array = new Uint16Array(1000);
-            var scale = d3.scale.linear().range([360, 1440]).domain([0, 100000]);
+        function  getRandomNumbers ( ) {
+            var  array  =  new  Uint16Array ( 1000 ) ;
+             échelle  var =  d3 . échelle . linéaire ( ) . plage ( [ 360 ,  1440 ] ) . domaine ( [ 0 ,  100 000 ] ) ;
 
-            if(window.hasOwnProperty("crypto") && typeof window.crypto.getRandomValues === "function"){
-                window.crypto.getRandomValues(array);
-                console.log("works");
-            } else {
-                //no support for crypto, get crappy random numbers
-                for(var i=0; i < 1000; i++){
-                    array[i] = Math.floor(Math.random() * 100000) + 1;
+            if ( window . hasOwnProperty ( "crypto" )  &&  typeof  window . crypto . getRandomValues  ===  "function" ) {
+                fenêtre . crypto . getRandomValues ( tableau ) ;
+                console . log ( "fonctionne" ) ;
+            }  else  {
+                // pas de support pour la crypto, obtenez des nombres aléatoires merdiques
+                pour ( var  i = 0 ;  i  <  1000 ;  i ++ ) {
+                    tableau [ i ]  =  Math . plancher ( Math . aléatoire ( ) * 100000 )  +  1 ;
                 }
             }
 
-            return array;
+            return  array ;
         }
 
-    </script>
-</body>
-</html>
+    </ script >
+</ corps >
+</ html >
